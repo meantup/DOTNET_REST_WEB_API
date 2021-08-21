@@ -15,7 +15,13 @@ namespace DOTNET_REST_WEB_API.Helper
         public void OnAuthorization(AuthorizationFilterContext context)
         {
             var user = (UserInfo)context.HttpContext.Items["User"];
-            if(user == null)
+            var tokenExpired = (bool)context.HttpContext.Items["expired_token"];
+
+            if (tokenExpired)
+            {
+                context.Result = new JsonResult(new { message = "Token Expired" }) { StatusCode = StatusCodes.Status401Unauthorized };
+            }
+            else if (user == null)
             {
                 context.Result = new JsonResult(new { message = "Unauthorized" }){ StatusCode = StatusCodes.Status401Unauthorized};
             }

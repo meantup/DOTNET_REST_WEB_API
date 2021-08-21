@@ -11,9 +11,13 @@ namespace DOTNET_REST_WEB_API.Adapter
     public class AdapterClass : IAdapterRepository
     {
         public IAuthManager auth { get; }
+
+        public IRefreshToken refresh { get; }
+
         public AdapterClass(IConfiguration config)
         {
             auth = new AuthManager(config);
+            refresh = new RefreshToken(config);
         }
        
     }

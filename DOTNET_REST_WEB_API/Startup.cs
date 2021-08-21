@@ -35,7 +35,8 @@ namespace DOTNET_REST_WEB_API
         {
 
             services.AddControllers();
-            services.AddSingleton<IAuthManager, AuthManager> ();
+            services.AddSingleton<IAuthManager, AuthManager>();
+            services.AddSingleton<IRefreshToken, RefreshToken>();
             services.AddSingleton<IAdapterRepository, AdapterClass>();
             //services.AddCors();
             services.AddSwaggerGen(c =>
@@ -76,7 +77,8 @@ namespace DOTNET_REST_WEB_API
                     ValidateIssuerSigningKey = true,
                     ValidIssuer = Configuration["AuthManager:ValidIssuer"],
                     ValidAudience = Configuration["AuthManager:ValidAudience"],
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["AuthManager:Key"]))
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["AuthManager:Key"])),
+                    ClockSkew = TimeSpan.Zero
                 };
             });
         }

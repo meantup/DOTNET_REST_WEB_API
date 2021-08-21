@@ -5,9 +5,8 @@ using System.Threading.Tasks;
 
 namespace DOTNET_REST_WEB_API.Repository
 {
-    public interface IAdapterRepository
+    public interface IRepository
     {
-        IAuthManager auth { get; }
-        IRefreshToken refresh { get; }
+
     }
 }
