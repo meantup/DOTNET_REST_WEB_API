@@ -9,5 +9,7 @@ namespace DOTNET_REST_WEB_API.Repository
     {
         IAuthManager auth { get; }
         IRefreshToken refresh { get; }
+        IDefault def { get;}
+        IRepository repo { get; }
     }
 }

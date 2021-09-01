@@ -18,6 +18,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using System.Text;
+using Microsoft.Extensions.FileProviders;
+using System.IO;
 
 namespace DOTNET_REST_WEB_API
 {
@@ -92,15 +94,18 @@ namespace DOTNET_REST_WEB_API
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "DOTNET_REST_WEB_API v1"));
             }
-            //else
-            //{
-            //    app.UseSwagger();
-            //    app.UseSwaggerUI(c => c.SwaggerEndpoint("/",""));
-            //}
+            else
+            {
+                app.UseSwagger();
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("http://192.168.210.165/swagger/v1/swagger.json", "DOTNET"));
+            }
 
             app.UseCors(x=>x.SetIsOriginAllowed(origin => true).AllowCredentials().AllowAnyHeader().AllowAnyMethod());
 
             app.UseRouting();
+
+            app.UseStaticFiles();
+            app.UseFileServer(enableDirectoryBrowsing: true);
 
             app.UseAuthentication();
             app.UseAuthorization();

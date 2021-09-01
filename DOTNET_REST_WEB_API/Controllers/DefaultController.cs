@@ -1,4 +1,5 @@
 ﻿using DOTNET_REST_WEB_API.Model;
+using DOTNET_REST_WEB_API.Repository;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -16,43 +17,53 @@ namespace DOTNET_REST_WEB_API.Controllers
     [Route("api/[Controller]")]
     public class DefaultController : BaseController
     {
-        private readonly IWebHostEnvironment _hostingEnvironment;
-        public DefaultController(IWebHostEnvironment hostingEnvironment)
+        private readonly IWebHostEnvironment _hosting;
+        private readonly IAdapterRepository _repost;
+        public DefaultController(IAdapterRepository repost, IWebHostEnvironment hosting)
         {
-            _hostingEnvironment = hostingEnvironment;
-        }
-        [HttpGet]
-        [Route("GetUserByID")]
-        public IActionResult Index()
-        {
-            return Ok();
+            _repost = repost;
+            _hosting = hosting;
         }
         [HttpPost]
         [Route("InsertRecord")]
-        public async Task<IActionResult> InsertRecord([FromForm] InsertProduct product)
+        public async Task<IActionResult> InsertRecord(IFormFile file, [FromForm] InsertProduct product)
         {
-          
-            if (product.image != null)
+            try
             {
-                var a = _hostingEnvironment.WebRootPath;
-                var fileName = Path.GetFileName(product.image.FileName);
-                var filePath = Path.Combine(_hostingEnvironment.WebRootPath, "Images\\", fileName);
-
-                using (var fileSteam = new FileStream(filePath, FileMode.Create))
+                var fileName = string.Empty;
+                if (file.Length > 0)
                 {
-                    await product.image.CopyToAsync(fileSteam);
+                    var extension = "." + file.FileName.Split('.')[file.FileName.Split('.').Length - 1];
+                    fileName = Guid.NewGuid().ToString() + extension;
+                  
+                    var filePath = Path.Combine(_hosting.WebRootPath, "Images\\", fileName);
+
+                    using (var bits = new FileStream(filePath, FileMode.Create))
+                    {
+                        await file.CopyToAsync(bits);
+                        product.filepath = $"{this.Request.Scheme}://{this.Request.Host}/Images/{fileName}";
+                    }
+                    var ret = await _repost.def.insert(product);
+                    return Ok(ret);
                 }
-
-
-                //product.image = filePath;  //save the filePath to database ImagePath field.
-                //_context.Add(car);
-                //await _context.SaveChangesAsync();
-                return Ok();
             }
-            else
+            catch (Exception)
             {
-                return BadRequest();
+
+                throw;
             }
+            return BadRequest();
+        }
+        [HttpGet]
+        [Route("GetInquiry/{from}/{to}")]
+        public async Task<IActionResult> Inquiry(string from,string to)
+        {
+            var ret = await _repost.def.inquiryList(from, to);
+            if (ret.ResponseCode.Equals(200))
+            {
+                return Ok(ret);
+            }
+            return BadRequest();
         }
     }
 }

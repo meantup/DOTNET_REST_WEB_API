@@ -1,5 +1,6 @@
 ﻿using DOTNET_REST_WEB_API.Class;
 using DOTNET_REST_WEB_API.Repository;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
@@ -11,13 +12,16 @@ namespace DOTNET_REST_WEB_API.Adapter
     public class AdapterClass : IAdapterRepository
     {
         public IAuthManager auth { get; }
-
         public IRefreshToken refresh { get; }
+        public IDefault def { get; }
 
-        public AdapterClass(IConfiguration config)
+        public IRepository repo { get; }
+
+        public AdapterClass(IConfiguration config, IWebHostEnvironment hostingEnvironment)
         {
             auth = new AuthManager(config);
             refresh = new RefreshToken(config);
+            def = new DefaultClass(config, hostingEnvironment);
         }
        
     }

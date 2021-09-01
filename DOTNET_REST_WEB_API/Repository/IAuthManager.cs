@@ -9,6 +9,5 @@ namespace DOTNET_REST_WEB_API.Repository
     public interface IAuthManager
     {
         Task<ServiceResponse<object>> RequestToken(string user, string pass);
-        TokenResponse GenerateJwt(UserModel model);
     }
 }

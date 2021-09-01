@@ -12,7 +12,6 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
-using System.Web.Mvc;
 
 namespace DOTNET_REST_WEB_API.Class
 {
@@ -71,7 +70,7 @@ namespace DOTNET_REST_WEB_API.Class
                     param.Add("pass", pass);
                     param.Add("retval", DbType.Int32, direction: ParameterDirection.Output);
                
-                    var res = await connection.QueryAsync<dynamic>("usp_usercredAPI", param, commandType: CommandType.StoredProcedure);
+                    var res = await connection.QueryAsync<dynamic>("usercredAPI", param, commandType: CommandType.StoredProcedure);
                     int retval = param.Get<int>("retval");
                     if (retval.Equals(200))
                     {
