@@ -63,7 +63,12 @@ namespace DOTNET_REST_WEB_API.Controllers
             {
                 return Ok(ret);
             }
+            else
+            {
+                return Ok(ret);
+            }
             return BadRequest();
         }
+
     }
 }

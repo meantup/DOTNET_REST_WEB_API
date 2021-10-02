@@ -16,11 +16,6 @@ namespace DOTNET_REST_WEB_API.Model
         public int quantity { get; set; }
         public string filepath { get; set; }
     }
-    //public class ImageProduct
-    //{
-    //    public IFormFile images { get; set; }
-    //    public string pathImage { get; set; }
-    //}
     public class OrderList
     {
         public int id { get; set; }

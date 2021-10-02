@@ -1,0 +1,59 @@
+﻿body {
+    min-height: 100vh;
+}
+.card {
+    width: 360px;
+    padding: 0% 0 0;
+    margin: auto;
+}
+.error {
+    color: #ff0000;
+    font-size: 12px;
+    margin-top: 5px;
+    margin-bottom: 0;
+}
+
+label .error {
+    border: 1px solid #ff0000;
+    color: #0e0e0e;
+}
+
+.form-control:not(select) {
+    padding: 1.5rem 0.5rem;
+}
+
+select.form-control {
+    height: 52px;
+    padding-left: 0.5rem;
+}
+
+.form-control::placeholder {
+    color: #ccc;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.form-control:focus {
+    box-shadow: none;
+}
+.input-group{
+    padding-top: 10px;
+}
+.form-group{
+    margin-bottom: 1em;
+}
+.form-label{
+    font-size: 1em;
+    color: #aaa;
+    display: block;
+    opacity: 1;
+    transform: translateY(-1.25em);
+}
+/*.input-group {
+    box-shadow: none;
+    background-color: rgba(0,0,0,.02);
+    border-radius: 0px;
+    border-color: #ccc;
+    border-style: none none solid none;
+    width: 100%;
+}*/
