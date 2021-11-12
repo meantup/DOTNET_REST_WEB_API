@@ -11,5 +11,6 @@ namespace DOTNET_REST_WEB_API.Repository
         IRefreshToken refresh { get; }
         IDefault def { get;}
         IRepository repo { get; }
+        IYoutube yout { get; }
     }
 }

@@ -17,11 +17,14 @@ namespace DOTNET_REST_WEB_API.Adapter
 
         public IRepository repo { get; }
 
+        public IYoutube yout { get; }
+
         public AdapterClass(IConfiguration config, IWebHostEnvironment hostingEnvironment)
         {
             auth = new AuthManager(config);
             refresh = new RefreshToken(config);
             def = new DefaultClass(config, hostingEnvironment);
+            yout = new YoutubeClass(config, hostingEnvironment);
         }
        
     }
