@@ -12,6 +12,7 @@ namespace DOTNET_REST_WEB_API.Adapter
     public class AdapterClass : IAdapterRepository
     {
         public IAuthManager auth { get; }
+        public IAccount acc { get; }
         public IRefreshToken refresh { get; }
         public IDefault def { get; }
 
@@ -25,6 +26,7 @@ namespace DOTNET_REST_WEB_API.Adapter
             refresh = new RefreshToken(config);
             def = new DefaultClass(config, hostingEnvironment);
             yout = new YoutubeClass(config, hostingEnvironment);
+            acc = new AccountClass(config);
         }
        
     }

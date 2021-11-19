@@ -67,6 +67,7 @@ namespace DOTNET_REST_WEB_API
                         new string[]{ }
                     }
                 });
+                c.EnableAnnotations();
             });
             services.AddAuthentication(options => { options.DefaultAuthenticateScheme = "Bearer"; options.DefaultChallengeScheme = "Bearer"; })
             .AddJwtBearer("Bearer", options =>

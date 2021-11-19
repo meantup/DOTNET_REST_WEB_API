@@ -77,6 +77,23 @@ namespace DOTNET_REST_WEB_API.Model
             public PageInfo pageInfo { get; set; }
             public List<Item> items { get; set; }
         }
+        public class AddPlaylist
+        {
+            public string link { get; set; }
+            public string ecode { get; set; }
+            public string artist { get; set; }
+            public string title { get; set; }
+
+        }
+
+        public class SongPlayed
+        {
+            public string Link { get; set; }
+            public string Artist { get; set; }
+            public string Title { get; set; }
+        }
+
+
 
 
     }

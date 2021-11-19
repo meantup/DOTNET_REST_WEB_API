@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using static DOTNET_REST_WEB_API.Model.YoutubeModel;
 
 namespace DOTNET_REST_WEB_API.Controllers
 {
@@ -25,6 +26,27 @@ namespace DOTNET_REST_WEB_API.Controllers
         public async Task<IActionResult> GetListVideos(string query)
         {
             var val = await _repost.yout.getData(query);
+            return Ok(val);
+        }
+        [HttpPost]
+        [Route("AddPlaylist")]
+        public async Task<IActionResult> AddPlaylist(AddPlaylist add)
+        {
+            var val = await _repost.yout.addPlaylist(add);
+            return Ok(val);
+        }
+        [HttpGet]
+        [Route("PlaySong")]
+        public async Task<IActionResult> PlaySong()
+        {
+            var val = await _repost.yout.playSong();
+            return Ok(val);
+        }
+        [HttpGet]
+        [Route("UpdateSong")]
+        public async Task<IActionResult> UpdateSong()
+        {
+            var val = await _repost.yout.updateSong();
             return Ok(val);
         }
     }

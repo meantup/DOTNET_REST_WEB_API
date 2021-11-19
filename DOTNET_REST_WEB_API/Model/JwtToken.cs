@@ -9,4 +9,10 @@ namespace DOTNET_REST_WEB_API.Model
     {
         public long exp { get; set; }
     }
+    public class LoginAuth
+    { 
+       public string username { get; set; }
+       public string password { get; set; }
+    }
+
 }

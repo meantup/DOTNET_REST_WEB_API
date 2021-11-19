@@ -9,5 +9,6 @@ namespace DOTNET_REST_WEB_API.Repository
     public interface IAuthManager
     {
         Task<ServiceResponse<object>> RequestToken(string user, string pass);
+        Task<ServiceResponse<object>> RequestTokenPlayer(string user, string pass);
     }
 }
