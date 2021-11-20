@@ -76,7 +76,56 @@ namespace DOTNET_REST_WEB_API.Class
 
             return response;
         }
+        public async Task<ServiceResponseT<object>> getPlaylist()
+        {
+            var service = new ServiceResponseT<object>();
+            try {
+                string type = "Get";
+                DynamicParameters params1 = new DynamicParameters();
+                params1.Add("retval", dbType: DbType.Int32, direction: ParameterDirection.Output);
+                params1.Add("@type", type, dbType: DbType.String, direction: ParameterDirection.Input);
+                var Result = await sql1.QueryAsync<dynamic>("usp_Playlist", params1, commandType: CommandType.StoredProcedure);
+                var retval = params1.Get<int>("retval");
 
+                service.ResponseCode = 200;
+
+                if (retval == 10)
+                {
+                    service.Message = "Sucessfully Get playlist";
+                    service.Data = new
+                    {
+                        ResponseCode = retval,
+                        Result = Result
+                    };
+                }
+                else
+                {
+                    service.Message = "No Queued Songs";
+                    service.Data = new
+                    {
+                        ResponseCode = retval,
+                        Message = "No Queued Songs"
+
+                    };
+                }
+
+            }
+            catch (Exception ee)
+            {
+                service.ResponseCode = 500;
+                service.Message = "Exception";
+                service.Data = new
+                {
+                    ResponseCode = 99,
+                    Result = new
+                    {
+                        ErrorMessage = ee.Message
+                    }
+                };
+            }
+            return service;
+
+        }
         public async Task<ServiceResponseT<object>> addPlaylist(AddPlaylist add)
         {
             var service = new ServiceResponseT<object>();
@@ -284,5 +333,7 @@ namespace DOTNET_REST_WEB_API.Class
             }
             return service;
         }
+
+      
     }
 }

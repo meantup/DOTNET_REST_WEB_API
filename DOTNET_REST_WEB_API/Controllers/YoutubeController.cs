@@ -36,6 +36,13 @@ namespace DOTNET_REST_WEB_API.Controllers
             return Ok(val);
         }
         [HttpGet]
+        [Route("GetPlaylist")]
+        public async Task<IActionResult> GetPlaylist()
+        {
+            var val = await _repost.yout.getPlaylist();
+            return Ok(val);
+        }
+        [HttpGet]
         [Route("PlaySong")]
         public async Task<IActionResult> PlaySong()
         {

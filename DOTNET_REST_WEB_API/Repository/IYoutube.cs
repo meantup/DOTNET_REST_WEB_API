@@ -11,6 +11,7 @@ namespace DOTNET_REST_WEB_API.Repository
     {
         Task<ServiceResponseT<object>> getData(string searchQuery);
         Task<ServiceResponseT<object>> addPlaylist(AddPlaylist add);
+        Task<ServiceResponseT<object>> getPlaylist();
         Task<ServiceResponseT<object>> playSong();
         Task<ServiceResponseT<object>> updateSong();
     }
